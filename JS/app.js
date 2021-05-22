@@ -24,3 +24,24 @@ function buildTable(data) {
         );
     });
 };
+
+// filter the table by date
+function handleClick() {
+    //grab the datetime value from the filter
+    let date = d3.select('#datetime').property('value');
+    let filteredData = tableData;
+
+    // check the date and filter the data using that date
+    if (date) {
+        //apply 'filter' to the data to only keep the rows that match the filter
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+
+    // rebuild the table using the filtered data. 
+    // if no date was entered then filteredData will just be the original table
+    buildTable(filteredData);
+};
+
+d3.selectAll('#filter-btn').on('click', handleClick);
+
+buildTable(tableData);
